@@ -5,6 +5,7 @@ import Banner from "./shared/banner";
 import Footer from "./shared/footer";
 import Navbar from "./shared/navbar";
 
+
 function App() {
   return (
     <>
