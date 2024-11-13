@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { AuthProvider } from "./context/auth/auth";
+import { GlobalContextProvider } from "./context/global/global";
+import AppRoutes from "./route";
+import Banner from "./shared/banner";
+import Footer from "./shared/footer";
+import Navbar from "./shared/navbar";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="bg-[#fdf3e3] w-full h-full">
+        <AuthProvider>
+          <GlobalContextProvider>
+            <Banner />
+            <Navbar />
+            <AppRoutes />
+            <Footer />
+          </GlobalContextProvider>
+        </AuthProvider>
+      </div>
+    </>
   );
 }
 
