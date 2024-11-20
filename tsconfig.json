@@ -2,14 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@lib/*": ["src/lib/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/lib/utils/*"],
-      "@ui/*": ["src/components/ui/*"]
+      "@/*": ["./*"]
     },
-    "target": "es5",
+    "target": "ES2015",
+    "downlevelIteration": true,
     "lib": [
       "dom",
       "dom.iterable",

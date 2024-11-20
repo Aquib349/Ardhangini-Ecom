@@ -37,7 +37,9 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [products, setProducts] = useState<Product[]>([]);
-  // const [meta, setMeta] = useState<Record<string, any>>({});
+  const [newComers, setNewComers] = useState<Product[]>([]);
+  const [shippable, setShippable] = useState<Product[]>([]);
+  const [ardhanginiExclusive, setArdhanginiExclusive] = useState<Product[]>([]);
   const [userAddress, setUserAddress] = useState<UserAddress[]>([]);
   const [cartItemData, setCartItemData] = useState<CartResponse | null>(null);
   const [itemLength, setItemLength] = useState(0);
@@ -48,8 +50,27 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({
   const fetchAllProduct = async () => {
     try {
       const data: ProductResponse = await fetchAllProducts();
+
+      // new comers
+      const trendingProducts = data.items.filter(
+        (product) => product.isTrending
+      );
+
+      // shippable prodcuts
+      const shippableProducts = data.items.filter(
+        (product) => product.isShippable
+      );
+
+      // ardhangini exclusive
+      const Ardhangini_Exclusive = data.items.filter(
+        (product) => product.isExclusive
+      );
+
+      // set the state for the different filters !!
+      setNewComers(trendingProducts);
+      setShippable(shippableProducts);
+      setArdhanginiExclusive(Ardhangini_Exclusive);
       setProducts(data.items);
-      // setMeta(data.meta);
     } catch (error: any) {
       console.error("Error fetching product:", error);
     }
@@ -300,6 +321,9 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({
     <GlobalContext.Provider
       value={{
         products,
+        newComers,
+        shippable,
+        ardhanginiExclusive,
         fetchAllProduct,
         addItemWishlist,
         placeOrders,

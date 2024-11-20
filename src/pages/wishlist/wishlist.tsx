@@ -16,7 +16,7 @@ import image from "../../assets/saree.jpg";
 
 function Wishlist() {
   const { wishlistData, DeleteWishlistItem } = useWishlist();
-  const { products, addItemCart } = useGlobal();
+  const { newComers, addItemCart } = useGlobal();
   // const [selectedColor, setSelectedColor] = useState<string | undefined>(
   //   undefined
   // );
@@ -27,7 +27,7 @@ function Wishlist() {
 
   // Filter the products in wishlist based on productId
   const wishlistItems = wishlistData?.lineItems.map((item) => {
-    return products.find((product) => product.id === item.productId);
+    return newComers.find((product) => product.id === item.productId);
   });
 
   if (!wishlistData) {
@@ -36,6 +36,9 @@ function Wishlist() {
         <LoaderCircle className="animate-spin" />
       </div>
     );
+  }
+  if (wishlistData?.lineItems.length <= 0) {
+    return <div className="text-center p-5 text-sm text-slate-400">No Items in wishlist</div>;
   }
 
   return (

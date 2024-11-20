@@ -29,11 +29,19 @@ const MobileNavigation: React.FC = () => {
         </SheetTrigger>
         <SheetContent side="left" className="p-3 pt-12 bg-slate-200">
           <SheetHeader>
-            <SheetTitle className="absolute top-4 font-bold">Menu</SheetTitle>
+            <SheetTitle className="absolute top-4 font-medium text-sm">
+              Welcome {localStorage.getItem("name")}
+            </SheetTitle>
             <SheetDescription></SheetDescription>
           </SheetHeader>
           <div className="flex flex-col mt-4 space-y-4">
-            {["newcomers", "shippable", "ardhangini exclusive"].map((item) => (
+            {[
+              "New Comers",
+              "Collections",
+              "Saree Quest",
+              "Ready To Ship",
+              "Ardhangini Exclusive",
+            ].map((item) => (
               <span
                 key={item}
                 className={`bg-transparent hover:bg-transparent font-medium cursor-pointer
@@ -44,30 +52,23 @@ const MobileNavigation: React.FC = () => {
                 }`}
                 onClick={() => {
                   setActive(item);
-                  navigate(`/${item}`);
+                  navigate(
+                    item === "Ready To Ship"
+                      ? `/shippable`
+                      : item === "New Comers"
+                      ? "/newcomers"
+                      : item === "Saree Quest"
+                      ? "/saree-quest"
+                      : item === "Ardhangini Exclusive"
+                      ? "/ardhangini-exclusive"
+                      : `/${item?.toLowerCase()}`
+                  );
                   setIsSheetOpen(false);
                 }}
               >
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </span>
             ))}
-
-            {/* Accordion for Collections and Saree-Quess */}
-            <Accordion type="single" collapsible>
-              <AccordionItem value="collections" className="border-0">
-                <AccordionTrigger className="hover:no-underline py-2">
-                  Collections
-                </AccordionTrigger>
-                <AccordionContent>coming soon...</AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="saree-quess" className="border-0">
-                <AccordionTrigger className="hover:no-underline py-2">
-                  Saree-Quess
-                </AccordionTrigger>
-                <AccordionContent>coming soon...</AccordionContent>
-              </AccordionItem>
-            </Accordion>
           </div>
         </SheetContent>
       </Sheet>

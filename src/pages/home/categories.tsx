@@ -1,5 +1,5 @@
 import { Button } from "../../components/ui/button";
-// import img1 from "../../assets/img1.jfif";
+import img1 from "../../assets/img1.jpg";
 import img2 from "../../assets/img2.jpg";
 import img3 from "../../assets/img3.jpg";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +26,7 @@ const Categories: React.FC = () => {
             {/* First item */}
             <div className="relative">
               <img
-                src={""}
+                src={img1}
                 alt="Yellow Wedding Sarees"
                 className="rounded-lg transition-transform duration-300 hover:scale-105"
               />

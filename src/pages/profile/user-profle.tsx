@@ -1,5 +1,5 @@
 // import { Trash2, Upload } from "lucide-react";
-import EditForm from "./edit-form"
+import EditForm from "./edit-form";
 import { useGlobal } from "../../hooks/use-global";
 import { useUser } from "../../hooks/use-user";
 import UserAddress from "./user-address";

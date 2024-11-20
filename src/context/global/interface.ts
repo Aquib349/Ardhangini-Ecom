@@ -3,6 +3,9 @@ import { Dispatch, SetStateAction } from "react";
 // global context props interface
 export interface GlobalContextProps {
   products: any[];
+  newComers: any[];
+  shippable: any[];
+  ardhanginiExclusive: any[];
   fetchAllProduct: () => void;
   addItemWishlist: (productId: string, typeId: string) => void;
   placeOrders: (

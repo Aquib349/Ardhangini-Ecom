@@ -10,7 +10,6 @@ export const authService = {
   },
 
   logout: async (userId: string) => {
-    console.log(userId);
     try {
       await apiClient.get("/user-auth/log-out", {
         params: { userId },

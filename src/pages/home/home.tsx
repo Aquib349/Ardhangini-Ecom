@@ -20,6 +20,7 @@ import {
 import { Card, CardContent } from "../../components/ui/card";
 import React from "react";
 import Autoplay from "embla-carousel-autoplay";
+import { useGlobal } from "../../hooks/use-global";
 
 const Home: React.FC = () => {
   const photos = [
@@ -50,7 +51,11 @@ const Home: React.FC = () => {
                 <div className="p-1">
                   <Card>
                     <CardContent className="flex aspect-square items-center justify-center p-0">
-                      <img src={img.images} alt="loading..." className="h- w-full object-cover bg-opacity-80"/>
+                      <img
+                        src={img.images}
+                        alt="loading..."
+                        className="h- w-full object-cover bg-opacity-80"
+                      />
                     </CardContent>
                   </Card>
                 </div>
@@ -67,7 +72,7 @@ const Home: React.FC = () => {
           <Button
             variant="outline"
             className="text-white font-medium rounded md:h-9 bg-black/70 cursor-pointer mt-2 md:mt-6 lg:mt-8 text-sm p-2 z-50 h-6"
-            onClick={() => navigate("/newcomers")}
+            onClick={() => navigate("/saree-quest")}
           >
             See All Collections
           </Button>

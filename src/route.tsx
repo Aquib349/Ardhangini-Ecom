@@ -1,19 +1,22 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
 import SignUp from "./pages/register/sign-up";
 import NewComers from "./pages/new-comers/new-comers";
-import Cart from "./pages/cart/cart";
+import PrivateRoute from "./components/private-route";
 import { CartContextProvider } from "./context/cart/cart";
-import Orders from "./pages/orders/orders";
+import Cart from "./pages/cart/cart";
 import { UserOrderProvider } from "./context/orders/orders";
+import Orders from "./pages/orders/orders";
 import { UserProvider } from "./context/user/user";
 import Profile from "./pages/profile/user-profle";
-import Wishlist from "./pages/wishlist/wishlist";
 import { WishlistProvider } from "./context/wishlist/wishlist";
-import { Toaster } from "react-hot-toast";
-import PrivateRoute from "./components/private-route";
-import { useEffect } from "react";
+import Wishlist from "./pages/wishlist/wishlist";
+import Shippable from "./pages/ready to ship/shippable";
+import ArdhanginiExclusive from "./pages/ardhangini exclusive/ardhangini-exclusive";
+import SareeQuest from "./pages/saree quest/saree-quest";
 
 const AppRoutes: React.FC = () => {
   const location = useLocation();
@@ -30,6 +33,12 @@ const AppRoutes: React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/newcomers" element={<NewComers />} />
+          <Route path="/shippable" element={<Shippable />} />
+          <Route path="/saree-quest" element={<SareeQuest />} />
+          <Route
+            path="/ardhangini-exclusive"
+            element={<ArdhanginiExclusive />}
+          />
           <Route element={<PrivateRoute />}>
             <Route
               path="/cart"

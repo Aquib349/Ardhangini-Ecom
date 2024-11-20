@@ -21,8 +21,8 @@ import {
 import image from "../../assets/saree.jpg";
 import { useGlobal } from "../../hooks/use-global";
 
-const NewComers: React.FC = () => {
-  const { newComers, addItemWishlist, addItemCart } = useGlobal();
+const ArdhanginiExclusive: React.FC = () => {
+  const { ardhanginiExclusive, addItemWishlist, addItemCart } = useGlobal();
 
   // const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,9 +31,12 @@ const NewComers: React.FC = () => {
     emblaCarouselAutoplay({ delay: 2000, stopOnInteraction: true })
   );
 
-  const totalPages = Math.ceil(newComers.length / itemsPerPage);
+  const totalPages = Math.ceil(ardhanginiExclusive.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentProducts = newComers.slice(startIndex, startIndex + itemsPerPage);
+  const currentProducts = ardhanginiExclusive.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -180,4 +183,4 @@ const NewComers: React.FC = () => {
   );
 };
 
-export default NewComers;
+export default ArdhanginiExclusive;

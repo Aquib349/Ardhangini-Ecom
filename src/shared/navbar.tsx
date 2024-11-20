@@ -1,6 +1,9 @@
+import { useAuth } from "../hooks/use-auth";
+import { useGlobal } from "../hooks/use-global";
+import Cookies from "js-cookie";
 import { useState } from "react";
-import logo from "../assets/logo.png";
-import { Input } from "../components/ui/input";
+import { useLocation, useNavigate } from "react-router-dom";
+import MobileNavigation from "./navigation/mobile-navigation";
 import {
   Headset,
   Heart,
@@ -10,12 +13,7 @@ import {
   ShoppingCart,
   User,
 } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
-import NavDropdown from "./navigation/nav-dropdown";
-import ProductNavigation from "./navigation/desktop-navigation";
-import { useAuth } from "../hooks/use-auth";
-import { useGlobal } from "../hooks/use-global";
-import MobileNavigation from "./navigation/mobile-navigation";
+import { Input } from "../components/ui/input";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -26,7 +24,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../components/ui/alert-dialog";
-import Cookies from "js-cookie";
+import NavDropdown from "./navigation/nav-dropdown";
+import ProductNavigation from "./navigation/desktop-navigation";
+import logo from "../assets/logo.png";
 
 const NavItem: React.FC<{
   icon: React.ReactNode;
@@ -166,10 +166,7 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* mobile screen navigation */}
-          <NavDropdown
-            handleLogout={logout}
-            userId={userId}
-          />
+          <NavDropdown handleLogout={logout} userId={userId} />
         </div>
       </div>
 

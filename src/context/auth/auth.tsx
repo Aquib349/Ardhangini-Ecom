@@ -93,6 +93,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       );
       const { userId } = response.data;
       localStorage.setItem("userId", userId);
+      // localStorage.setItem("name", firstName + " " + lastName);
       toastService.showToast("Registration successful!", "success", {
         position: "top-center",
       });

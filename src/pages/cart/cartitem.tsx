@@ -1,6 +1,8 @@
+import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import { Heart, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { Label } from "../../components/ui/label";
 
 function CartItem({
   id,
@@ -25,24 +27,10 @@ function CartItem({
   quantity: string;
   removeItem: (productid: string, typeId: string, quantity: number) => void;
   addItemWishlist: (productid: string, typeId: string) => void;
-  setQuantity: (quantity: number) => void;
+  setQuantity: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const initialCounter = Number(quantity) > 0 ? Number(quantity) : 1;
   const [counter, setCounter] = useState<number>(initialCounter);
-
-  function increaseQuantity(ObjectId: string) {
-    if (id === ObjectId) {
-      setCounter((prevState) => prevState + 1);
-      setQuantity(Number(quantity) + 1);
-    }
-  }
-
-  function decreaseQuantity(ObjectId: string) {
-    if (id === ObjectId) {
-      setCounter((prevState) => Math.max(1, prevState - 1));
-      setQuantity(Number(quantity) - 1);
-    }
-  }
 
   return (
     <div className="flex flex-col md:flex-row md:justify-between p-2 gap-4 md:gap-8">
@@ -88,22 +76,13 @@ function CartItem({
       </div>
 
       {/* Quantity Control */}
-      <div className="flex justify-center md:justify-end items-center space-x-2">
-        <Button
-          variant="default"
-          className="bg-red-600 px-2 py-1 rounded hover:bg-gray-300 h-6"
-          onClick={() => decreaseQuantity(id)}
-        >
-          -
-        </Button>
-        <span className="font-medium">{counter}</span>
-        <Button
-          variant="default"
-          className="bg-green-600 px-2 py-1 rounded hover:bg-gray-300 h-6"
-          onClick={() => increaseQuantity(id)}
-        >
-          +
-        </Button>
+      <div className="flex flex-col space-y-2">
+        <Label>Quantity</Label>
+        <Input
+          type="number"
+          defaultValue={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+        />
       </div>
     </div>
   );

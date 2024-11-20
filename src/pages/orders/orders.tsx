@@ -14,10 +14,18 @@ const Orders: React.FC = () => {
   const { AllOrders, cancelOrder } = useOrders();
   const sortedOrders = [...AllOrders].reverse();
 
-  if (AllOrders.length <= 0) {
+  if (!AllOrders) {
     return (
       <div className="flex justify-center items-center p-3">
         <LoaderCircle className="animate-spin" />
+      </div>
+    );
+  }
+
+  if (AllOrders.length <= 0) {
+    return (
+      <div className="text-center p-5 text-sm text-slate-400">
+        You haven't ordered anything yet
       </div>
     );
   }
