@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
               className="cursor-pointer"
               onClick={() => {
                 setShowSearchBar(!showSearchBar);
-                window.scrollTo(0, 0); // Scroll the page to the top when search bar is opened
+                window.scrollTo(0, 0);
               }}
             />
           </div>

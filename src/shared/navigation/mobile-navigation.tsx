@@ -76,7 +76,7 @@ const MobileNavigation: React.FC = () => {
             ))}
           </div>
           <div
-            className="absolute bottom-3 flex items-center items-center space-x-3 bg-transparent hover:bg-transparent font-medium cursor-pointer
+            className="absolute bottom-3 flex items-center space-x-3 bg-transparent hover:bg-transparent font-medium cursor-pointer
                 group pb-1 before:absolute before:left-0 before:right-0 before:bottom-0 before:h-0.5 
                 before:bg-pink-500 before:scale-x-0 before:origin-center before:transition-transform before:duration-300 
                 hover:before:scale-x-100"
