@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import {
   Accordion,
   AccordionContent,
@@ -12,14 +13,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../../components/ui/sheet";
-import { Menu } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/use-auth";
 
 const MobileNavigation: React.FC = () => {
+  const { logout } = useAuth();
   const [active, setActive] = useState("newcomers");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const navigate = useNavigate();
+  const accessToken = Cookies.get("accessToken");
+  const userId = localStorage.getItem("userId") || "";
 
   return (
     <>
@@ -69,6 +74,23 @@ const MobileNavigation: React.FC = () => {
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </span>
             ))}
+          </div>
+          <div
+            className="absolute bottom-3 flex items-center items-center space-x-3 bg-transparent hover:bg-transparent font-medium cursor-pointer
+                group pb-1 before:absolute before:left-0 before:right-0 before:bottom-0 before:h-0.5 
+                before:bg-pink-500 before:scale-x-0 before:origin-center before:transition-transform before:duration-300 
+                hover:before:scale-x-100"
+            onClick={() => {
+              setIsSheetOpen(false);
+              if (accessToken) {
+                logout(userId);
+              } else {
+                navigate("/login");
+              }
+            }}
+          >
+            <LogOut className="h-4 w-4" />
+            <span>{accessToken ? "Logout" : "Login"}</span>
           </div>
         </SheetContent>
       </Sheet>

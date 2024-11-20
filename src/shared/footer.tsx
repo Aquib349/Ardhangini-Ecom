@@ -6,13 +6,16 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-yellow-200 text-black py-10">
       <div className="m-auto w-[90%]">
-        <div className="flex items-center mb-4">
+        <div className="md:flex items-center space-x-4 mb-4 pl-4 md:pl-0">
           {/* Logo */}
           <img
             src={LOGO}
             alt="Ardhangini Designs Logo"
             className="w-[250px] md:w-[300px] pl-3 pb-4"
           />
+          <p className="text-xs md:text-md lg:text-lg font-medium pb-4">
+            A Unit of Ardhangini Designs LLP
+          </p>
         </div>
         <div className="container mx-auto flex flex-col md:flex-row justify-between">
           {/* Left Section */}

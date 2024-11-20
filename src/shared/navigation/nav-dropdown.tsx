@@ -6,26 +6,18 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
 import { useGlobal } from "../../hooks/use-global";
-import Cookies from "js-cookie";
 import {
   CircleUserRound,
   Heart,
-  LogOut,
   ShoppingBasket,
   ShoppingCart,
   User,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-interface Props {
-  handleLogout: (userId: string) => void;
-  userId: string;
-}
-
-const NavDropdown: React.FC<Props> = ({ handleLogout, userId }) => {
+const NavDropdown: React.FC = () => {
   const { itemLength } = useGlobal();
   const navigate = useNavigate();
-  const accessToken = Cookies.get("accessToken");
 
   return (
     <div className="nav-items flex z-50 lg:hidden space-x-3">
@@ -67,19 +59,6 @@ const NavDropdown: React.FC<Props> = ({ handleLogout, userId }) => {
             <span>My Wishlist</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            className="cursor-pointer"
-            onSelect={() => {
-              if (accessToken) {
-                handleLogout(userId);
-              } else {
-                navigate("/login");
-              }
-            }}
-          >
-            <LogOut className="mr-2 h-4 w-4" />
-            <span>{accessToken ? "Logout" : "Login"}</span>
-          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

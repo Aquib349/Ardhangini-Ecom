@@ -166,7 +166,7 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* mobile screen navigation */}
-          <NavDropdown handleLogout={logout} userId={userId} />
+          <NavDropdown />
         </div>
       </div>
 
