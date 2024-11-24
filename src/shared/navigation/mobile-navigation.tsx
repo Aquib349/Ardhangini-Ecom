@@ -14,17 +14,42 @@ import {
   SheetTrigger,
 } from "../../components/ui/sheet";
 import { LogOut, Menu } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/use-auth";
+import { apiClient, handleApiError } from "../../services/axios.service";
+import { useGlobal } from "../../hooks/use-global";
+
+interface Collection {
+  id: string;
+  name: string;
+  description: string;
+}
 
 const MobileNavigation: React.FC = () => {
   const { logout } = useAuth();
+  const { filterCollection } = useGlobal();
   const [active, setActive] = useState("newcomers");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const navigate = useNavigate();
   const accessToken = Cookies.get("accessToken");
   const userId = localStorage.getItem("userId") || "";
+  const [collections, setCollections] = useState<Collection[]>([]);
+  const navigate = useNavigate();
+
+  // function to get all the collections
+  async function allCollections() {
+    try {
+      const response = await apiClient.get("/product-collection");
+      setCollections(response.data);
+    } catch (error) {
+      handleApiError(error);
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    allCollections();
+  }, []);
 
   return (
     <>
@@ -57,21 +82,49 @@ const MobileNavigation: React.FC = () => {
                 }`}
                 onClick={() => {
                   setActive(item);
-                  navigate(
-                    item === "Ready To Ship"
-                      ? `/shippable`
-                      : item === "New Comers"
-                      ? "/newcomers"
-                      : item === "Saree Quest"
-                      ? "/saree-quest"
-                      : item === "Ardhangini Exclusive"
-                      ? "/ardhangini-exclusive"
-                      : `/${item?.toLowerCase()}`
-                  );
-                  setIsSheetOpen(false);
+                  if (item !== "Collections") {
+                    navigate(
+                      item === "Ready To Ship"
+                        ? `/shippable`
+                        : item === "New Comers"
+                        ? "/newcomers"
+                        : item === "Saree Quest"
+                        ? "/saree-quest"
+                        : item === "Ardhangini Exclusive"
+                        ? "/ardhangini-exclusive"
+                        : `#`
+                    );
+                    setIsSheetOpen(false);
+                  }
                 }}
               >
-                {item.charAt(0).toUpperCase() + item.slice(1)}
+                {item !== "Collections" &&
+                  item.charAt(0).toUpperCase() + item.slice(1)}
+                {item === "Collections" && (
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="collections" className="border-0">
+                      <AccordionTrigger>{item}</AccordionTrigger>
+                      <AccordionContent>
+                        {collections.map((collection) => (
+                          <div
+                            key={collection.id}
+                            className="hover:bg-slate-200 hover:rounded-lg p-4 cursor-pointer"
+                            onClick={() => {
+                              filterCollection(collection.name);
+                              navigate(`/collections`);
+                              setIsSheetOpen(false);
+                            }}
+                          >
+                            <h1 className="font-medium">{collection.name}</h1>
+                            <p className="text-xs text-gray-600">
+                              {collection.description}
+                            </p>
+                          </div>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                )}
               </span>
             ))}
           </div>

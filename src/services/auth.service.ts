@@ -23,6 +23,7 @@ export const authService = {
     firstName: string,
     lastName: string,
     email: string,
+    mobile: string,
     password: string,
     repeatPassword: string
   ) => {
@@ -30,6 +31,7 @@ export const authService = {
       firstName: firstName,
       lastName: lastName,
       email: email,
+      mobile: mobile,
       password: password,
       repeatPassword: repeatPassword,
     };

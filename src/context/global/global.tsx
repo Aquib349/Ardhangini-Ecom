@@ -39,12 +39,23 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({
   const [products, setProducts] = useState<Product[]>([]);
   const [newComers, setNewComers] = useState<Product[]>([]);
   const [shippable, setShippable] = useState<Product[]>([]);
+  const [collection, setCollections] = useState<Product[]>([]);
   const [ardhanginiExclusive, setArdhanginiExclusive] = useState<Product[]>([]);
   const [userAddress, setUserAddress] = useState<UserAddress[]>([]);
   const [cartItemData, setCartItemData] = useState<CartResponse | null>(null);
+  const [collectionName, setCollectionName] = useState("");
   const [itemLength, setItemLength] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
+
+  // function to filter out the product based on the collection type
+  function filterCollection(collectionName: string) {
+    setCollectionName(collectionName);
+    const filteredProduct = products.filter(
+      (item) => item.collection.name === collectionName
+    );
+    setCollections(filteredProduct);
+  }
 
   // Function to fetch all products
   const fetchAllProduct = async () => {
@@ -184,6 +195,7 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({
         position: "top-center",
       });
     } finally {
+      fetchCartData();
     }
   };
 
@@ -270,7 +282,7 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({
         {
           productId,
           typeId,
-          quantity: 0,
+          quantity: 1,
         },
       ],
     };
@@ -337,6 +349,9 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({
         setCartItemData,
         setItemLength,
         itemLength,
+        collection,
+        collectionName,
+        filterCollection,
       }}
     >
       {children}

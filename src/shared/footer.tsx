@@ -49,13 +49,9 @@ const Footer: React.FC = () => {
               <h3 className="font-semibold mb-2 text-sm md:text-lg">Help</h3>
               <ul className="text-xs md:text-sm space-y-4">
                 <li>About Us</li>
-                <li>My Account</li>
-                <li>Track My order</li>
-                <li>Return My order</li>
-                <li>Exchange My Order</li>
-                <li>Refund My order</li>
-                <li>Cancel My order</li>
-                <li>Blogs</li>
+                <li>Terms and Conditions</li>
+                <li>Disclaimer</li>
+                <li>Contact Us</li>
               </ul>
             </div>
             <div>
@@ -63,12 +59,8 @@ const Footer: React.FC = () => {
                 Policies
               </h3>
               <ul className="text-xs md:text-sm space-y-4">
-                <li>Shipping & Delivery Policy</li>
-                <li>Cash on Delivery (COD)</li>
-                <li>Return Policy</li>
-                <li>Refund Policy</li>
-                <li>Exchange Policy</li>
-                <li>Cancellation Policy</li>
+                <li>Exchange & Return Policy</li>
+                <li>Privacy Policy</li>
               </ul>
             </div>
           </div>

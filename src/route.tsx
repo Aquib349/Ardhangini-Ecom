@@ -17,6 +17,9 @@ import Wishlist from "./pages/wishlist/wishlist";
 import Shippable from "./pages/ready to ship/shippable";
 import ArdhanginiExclusive from "./pages/ardhangini exclusive/ardhangini-exclusive";
 import SareeQuest from "./pages/saree quest/saree-quest";
+import OtpLogin from "./pages/login/otp-login";
+import ResetPassword from "./pages/login/reset-password";
+import Collection from "./pages/collections/collection";
 
 const AppRoutes: React.FC = () => {
   const location = useLocation();
@@ -31,10 +34,13 @@ const AppRoutes: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/otp-login" element={<OtpLogin />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/newcomers" element={<NewComers />} />
           <Route path="/shippable" element={<Shippable />} />
           <Route path="/saree-quest" element={<SareeQuest />} />
+          <Route path="/collections" element={<Collection />} />
           <Route
             path="/ardhangini-exclusive"
             element={<ArdhanginiExclusive />}

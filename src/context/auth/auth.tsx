@@ -13,6 +13,7 @@ interface AuthContextProps {
     firstName: string,
     lastName: string,
     email: string,
+    mobile: string,
     password: string,
     repeatPassword: string
   ) => Promise<void>;
@@ -80,6 +81,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     firstName: string,
     lastName: string,
     email: string,
+    mobile: string,
     password: string,
     repeatPassword: string
   ) => {
@@ -88,6 +90,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         firstName,
         lastName,
         email,
+        mobile,
         password,
         repeatPassword
       );

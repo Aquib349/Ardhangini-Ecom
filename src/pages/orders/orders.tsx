@@ -224,10 +224,22 @@ const Orders: React.FC = () => {
 
                               <hr />
                               <Button
-                                className="bg-orange-500 mt-2 h-8 w-full md:w-auto"
+                                className={`mt-2 h-8 w-full md:w-auto ${
+                                  order?.OrderStatus?.toLowerCase() ===
+                                  "order cancelled"
+                                    ? "bg-slate-400"
+                                    : "bg-orange-500"
+                                }`}
                                 onClick={() => cancelOrder(order.orderId)}
+                                disabled={
+                                  order.OrderStatus?.toLowerCase() ===
+                                  "order cancelled"
+                                }
                               >
-                                Cancel
+                                {order.OrderStatus?.toLowerCase() ===
+                                "order cancelled"
+                                  ? "Cancelled"
+                                  : "Cancel"}
                               </Button>
                             </div>
                           </SheetContent>

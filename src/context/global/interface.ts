@@ -34,6 +34,9 @@ export interface GlobalContextProps {
   setCartItemData: Dispatch<SetStateAction<CartResponse | null>>;
   setItemLength: any;
   itemLength: number;
+  collection: any[];
+  collectionName: string;
+  filterCollection: (filterCollection: string) => void;
 }
 
 // get all the products -> interface

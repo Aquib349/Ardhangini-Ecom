@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CollectionNavigation from "./collection-navigation";
 
 const ProductNavigation: React.FC = () => {
   const [hovered, setHovered] = useState<string>("");
@@ -12,7 +13,7 @@ const ProductNavigation: React.FC = () => {
         className="main md:z-40 md:bg-slate-600 md:text-white z-50 py-2 md:flex md:justify-center md:items-center transition-all
            duration-300 fixed top-[3.2rem] md:top-[7.5rem] left-0 md:shadow-md w-full"
       >
-        <div className="hidden md:flex md:justify-center md:items-center m-auto w-full text-xs md:text-sm lg:text-base space-x-20">
+        <div className="hidden md:flex md:justify-center md:items-center m-auto w-full text-xs md:text-sm lg:text-base md:space-x-10 lg:space-x-20">
           {[
             "New Comers",
             "Collections",
@@ -31,7 +32,7 @@ const ProductNavigation: React.FC = () => {
               onClick={() => {
                 setActive(item);
                 navigate(
-                  item === "Ready To Ship"
+                  item !== "Collections" && item === "Ready To Ship"
                     ? `/shippable`
                     : item === "New Comers"
                     ? "/newcomers"
@@ -45,7 +46,9 @@ const ProductNavigation: React.FC = () => {
               onMouseEnter={() => setHovered(item)}
               onMouseLeave={() => setHovered("")}
             >
-              {item.charAt(0).toUpperCase() + item.slice(1).replace("-", " ")}
+              {item !== "Collections" &&
+                item.charAt(0).toUpperCase() + item.slice(1).replace("-", " ")}
+              {item === "Collections" && <CollectionNavigation item={item} />}
             </span>
           ))}
         </div>

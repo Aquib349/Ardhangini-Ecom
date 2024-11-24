@@ -17,7 +17,7 @@ const Banner: React.FC = () => {
         >
           <Flame className="text-yellow-500" />
           <p className="whitespace-nowrap">
-            FLAT 10% OFF on orders above ₹4,999 | Code: MOTHERSDAY
+            Welcome to Ardhangini – Discover Your Perfect Saree Today!
           </p>
           <Flame className="text-yellow-500" />
         </div>

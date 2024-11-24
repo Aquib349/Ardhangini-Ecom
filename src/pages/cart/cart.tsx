@@ -45,7 +45,7 @@ const Cart = () => {
   const [isCodEnabled, setIsCodEnabled] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(1);
 
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
@@ -73,7 +73,8 @@ const Cart = () => {
     } else {
       setPaymentMethod("");
     }
-  }, [isCodEnabled]);
+    console.log(quantity);
+  }, [isCodEnabled, quantity]);
 
   const handlePlaceOrder = () => {
     placeOrders(
@@ -86,6 +87,12 @@ const Cart = () => {
     closeDialog();
   };
 
+  if (cartItemData?.cartLineItems?.length! <= 0) {
+    return (
+      <div className="text-sm text-center py-4">No Item added to cart</div>
+    );
+  }
+
   return (
     <div className="pb-16">
       <div className="flex flex-col lg:flex-row gap-8 px-4 py-2 text-sm w-[95%] m-auto relative">
@@ -96,7 +103,7 @@ const Cart = () => {
                 key={val.id}
                 id={val.productId}
                 productTypeId={val.productTypeId}
-                image={img}
+                image={val.productThumbnail}
                 title={val.productName}
                 size="fixed size"
                 actualPrice={val.actualPricePerItem}
@@ -199,7 +206,14 @@ const Cart = () => {
               </div>
               <div className="flex justify-between font-bold">
                 <span>Total Cost</span>
-                <span>₹{Number(cartItemData?.finalTotalPrice).toFixed(2)}</span>
+                <span>
+                  ₹
+                  {Number(
+                    (cartItemData?.finalTotalPrice ?? 0) +
+                      (cartItemData?.totalSgst ?? 0) +
+                      (cartItemData?.totalCgst ?? 0)
+                  ).toFixed(2)}
+                </span>
               </div>
             </div>
 
@@ -211,8 +225,13 @@ const Cart = () => {
 
             {/* Checkout Section */}
             <Button
-              className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700"
+              className={`w-full text-white py-2 rounded-md ${
+                quantity > 5
+                  ? "bg-slate-400"
+                  : "bg-green-600 hover:bg-green-700"
+              }`}
               onClick={handlePlaceOrder}
+              disabled={quantity > 5}
             >
               Place Order
             </Button>

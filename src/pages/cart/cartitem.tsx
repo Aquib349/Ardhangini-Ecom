@@ -1,8 +1,8 @@
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import { Heart, Trash2 } from "lucide-react";
-import { useState } from "react";
 import { Label } from "../../components/ui/label";
+import { toastService } from "../../services/toast.service";
 
 function CartItem({
   id,
@@ -29,9 +29,15 @@ function CartItem({
   addItemWishlist: (productid: string, typeId: string) => void;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  const initialCounter = Number(quantity) > 0 ? Number(quantity) : 1;
-  const [counter, setCounter] = useState<number>(initialCounter);
-
+  // function to set quantity
+  function Quantity(e: any) {
+    setQuantity(Number(e.target.value));
+    if (Number(e.target.value) > 5) {
+      toastService.showToast("maximum 5 you can order", "error", {
+        position: "top-center",
+      });
+    }
+  }
   return (
     <div className="flex flex-col md:flex-row md:justify-between p-2 gap-4 md:gap-8">
       <div className="flex items-start gap-4 md:w-2/3">
@@ -49,7 +55,9 @@ function CartItem({
                 <p className="text-sm font-semibold text-slate-500 line-through">
                   ₹{actualPrice}
                 </p>
-                <p className="text-sm font-medium">₹{counter * finalPrice}</p>
+                <p className="text-sm font-medium">
+                  ₹{Number(quantity) * finalPrice}
+                </p>
               </>
             ) : (
               <p className="text-sm font-semibold">₹{actualPrice}</p>
@@ -67,7 +75,7 @@ function CartItem({
             <Button
               variant="outline"
               className="text-red-500 bg-transparent border-0 p-0 h-6 hover:bg-transparent"
-              onClick={() => removeItem(id, productTypeId, counter)}
+              onClick={() => removeItem(id, productTypeId, Number(quantity))}
             >
               <Trash2 size={18} />
             </Button>
@@ -78,11 +86,7 @@ function CartItem({
       {/* Quantity Control */}
       <div className="flex flex-col space-y-2">
         <Label>Quantity</Label>
-        <Input
-          type="number"
-          defaultValue={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-        />
+        <Input type="number" defaultValue={quantity} onChange={Quantity} />
       </div>
     </div>
   );
