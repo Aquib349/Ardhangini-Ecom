@@ -15,9 +15,9 @@ const ProductNavigation: React.FC = () => {
       >
         <div className="hidden md:flex md:justify-center md:items-center m-auto w-full text-xs md:text-sm lg:text-base md:space-x-10 lg:space-x-20">
           {[
-            "New Comers",
+            "Newcomers",
             "Collections",
-            "Saree Quest",
+            "Saree-Quest",
             "Ready To Ship",
             "Ardhangini Exclusive",
           ].map((item) => (
@@ -34,9 +34,9 @@ const ProductNavigation: React.FC = () => {
                 navigate(
                   item !== "Collections" && item === "Ready To Ship"
                     ? `/shippable`
-                    : item === "New Comers"
+                    : item === "Newcomers"
                     ? "/newcomers"
-                    : item === "Saree Quest"
+                    : item === "Saree-Quest"
                     ? "/saree-quest"
                     : item === "Ardhangini Exclusive"
                     ? "/ardhangini-exclusive"

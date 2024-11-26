@@ -17,7 +17,7 @@ const Banner: React.FC = () => {
         >
           <Flame className="text-yellow-500" />
           <p className="whitespace-nowrap">
-            Welcome to Ardhangini – Discover Your Perfect Saree Today!
+            Welcome to Ardhangini Designs – Discover Your Perfect Saree Today!
           </p>
           <Flame className="text-yellow-500" />
         </div>

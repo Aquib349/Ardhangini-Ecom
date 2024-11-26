@@ -20,6 +20,7 @@ import SareeQuest from "./pages/saree quest/saree-quest";
 import OtpLogin from "./pages/login/otp-login";
 import ResetPassword from "./pages/login/reset-password";
 import Collection from "./pages/collections/collection";
+import ProductDetail from "./pages/product-detail/product-detail";
 
 const AppRoutes: React.FC = () => {
   const location = useLocation();
@@ -46,6 +47,7 @@ const AppRoutes: React.FC = () => {
             element={<ArdhanginiExclusive />}
           />
           <Route element={<PrivateRoute />}>
+            <Route path="/product-detail/:id" element={<ProductDetail />} />
             <Route
               path="/cart"
               element={

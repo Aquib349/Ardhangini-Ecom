@@ -20,11 +20,12 @@ import {
 } from "../../components/ui/pagination";
 import image from "../../assets/saree.jpg";
 import { useGlobal } from "../../hooks/use-global";
+import { useNavigate } from "react-router-dom";
 
 const NewComers: React.FC = () => {
   const { newComers, addItemWishlist, addItemCart } = useGlobal();
+  const navigate = useNavigate();
 
-  // const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
   const plugin = React.useRef(
@@ -33,7 +34,10 @@ const NewComers: React.FC = () => {
 
   const totalPages = Math.ceil(newComers.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentProducts = newComers.slice(startIndex, startIndex + itemsPerPage);
+  const currentProducts = newComers.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -54,9 +58,9 @@ const NewComers: React.FC = () => {
       <div className="pb-16">
         <div className="new-comers grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:gap-2 mb-8 md:w-[90%] m-auto">
           {currentProducts.map((val) => (
-            <div key={val.id} className="main md:py-4 p-0.5">
+            <div key={val.id} className="main md:py-4 p-0.5" onClick={() => navigate(`/product-detail/${val.id}`)}>
               <div className="w-full max-w-xs mx-auto bg-white rounded-lg mb-4 relative">
-                <div className="flex justify-center">
+                <div className="flex justify-center cursor-pointer">
                   <Carousel
                     plugins={[plugin.current]}
                     className="w-full"

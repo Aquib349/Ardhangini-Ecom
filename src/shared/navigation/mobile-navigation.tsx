@@ -66,9 +66,9 @@ const MobileNavigation: React.FC = () => {
           </SheetHeader>
           <div className="flex flex-col mt-4 space-y-4">
             {[
-              "New Comers",
+              "Newcomers",
               "Collections",
-              "Saree Quest",
+              "Saree-Quest",
               "Ready To Ship",
               "Ardhangini Exclusive",
             ].map((item) => (
@@ -86,9 +86,9 @@ const MobileNavigation: React.FC = () => {
                     navigate(
                       item === "Ready To Ship"
                         ? `/shippable`
-                        : item === "New Comers"
+                        : item === "Newcomers"
                         ? "/newcomers"
-                        : item === "Saree Quest"
+                        : item === "Saree-Quest"
                         ? "/saree-quest"
                         : item === "Ardhangini Exclusive"
                         ? "/ardhangini-exclusive"
@@ -103,12 +103,14 @@ const MobileNavigation: React.FC = () => {
                 {item === "Collections" && (
                   <Accordion type="single" collapsible>
                     <AccordionItem value="collections" className="border-0">
-                      <AccordionTrigger>{item}</AccordionTrigger>
+                      <AccordionTrigger className="hover:no-underline">
+                        {item}
+                      </AccordionTrigger>
                       <AccordionContent>
                         {collections.map((collection) => (
                           <div
                             key={collection.id}
-                            className="hover:bg-slate-200 hover:rounded-lg p-4 cursor-pointer"
+                            className="hover:bg-slate-200 hover:rounded-lg p-2 cursor-pointer"
                             onClick={() => {
                               filterCollection(collection.name);
                               navigate(`/collections`);
