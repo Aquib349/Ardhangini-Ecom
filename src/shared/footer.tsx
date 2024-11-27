@@ -4,16 +4,16 @@ import LOGO from "../assets/logo.png";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-yellow-200 text-black py-10">
+    <footer className="bg-yellow-200 text-black pt-10 pb-4">
       <div className="m-auto w-[90%]">
-        <div className="md:flex items-center space-x-4 mb-4 pl-4 md:pl-0">
+        <div className="flex flex-col space-x-4 mb-4 pl-4 md:pl-0">
           {/* Logo */}
           <img
             src={LOGO}
             alt="Ardhangini Designs Logo"
             className="w-[250px] md:w-[300px] pl-3 pb-4"
           />
-          <p className="text-xs md:text-md lg:text-lg font-medium pb-4">
+          <p className="text-xs md:text-md lg:text-lg font-medium pb-4 lg:pl-4">
             A Unit of Ardhangini Designs LLP
           </p>
         </div>
@@ -79,12 +79,9 @@ const Footer: React.FC = () => {
           </div>
         </div>
         {/* Bottom Section */}
-        <div className="bg-yellow-200 py-4 mt-4 flex justify-between font-semibold">
+        <div className="bg-yellow-200 mt-4 flex justify-center font-semibold">
           <p className="text-xs md:text-sm">
             © Copyright Ardhangini. All Rights Reserved.
-          </p>
-          <p className="text-xs md:text-sm">
-            Terms & Conditions | Privacy Policy
           </p>
         </div>
       </div>

@@ -1,22 +1,32 @@
 import useProductDetail from "../../hooks/use-productDetail";
-import { Badge } from "../../components/ui/badge";
 import React, { useEffect, useState } from "react";
-import { TiStarFullOutline } from "react-icons/ti";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import { useGlobal } from "../../hooks/use-global";
+import ProductDetails from "./product-details";
 
 function ProductDetail() {
-  const [mainImage, setMainImage] = useState<string>(
-    "https://plus.unsplash.com/premium_photo-1661964329971-b295ec89c7c9?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  );
+  const { addItemCart } = useGlobal();
+  const { id } = useParams<{ id: string }>();
+  const { productDetail } = useProductDetail({ id: id || "" });
+  const [mainImage, setMainImage] = useState<string>("");
   const [hoverPosition, setHoverPosition] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
   });
-  const [showZoom, setShowZoom] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-  const { id } = useParams<{ id: string }>();
-  const { productDetail } = useProductDetail({ id: id || "" });
+  // Set main image when product details are available
+  useEffect(() => {
+    if (
+      productDetail &&
+      productDetail.productImages &&
+      productDetail.productImages.length > 0
+    ) {
+      setMainImage(productDetail.productImages[0].imageSource);
+    }
+  }, [productDetail]);
+  const [showZoom, setShowZoom] = useState<boolean>(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -30,6 +40,12 @@ function ProductDetail() {
     setShowZoom(false);
   };
 
+  // function add item to cart
+  function addItemToCart(id: string, productTypeId: string) {
+    addItemCart(id, productTypeId);
+    navigate("/cart");
+  }
+
   // Fallback while the product detail is being fetched
   if (!productDetail) {
     return (
@@ -38,17 +54,6 @@ function ProductDetail() {
       </div>
     );
   }
-
-  // Set main image when product details are available
-  useEffect(() => {
-    if (
-      productDetail &&
-      productDetail.productImages &&
-      productDetail.productImages.length > 0
-    ) {
-      setMainImage(productDetail.productImages[0].imageSource);
-    }
-  }, [productDetail]);
 
   return (
     <div className="p-6 mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -90,7 +95,7 @@ function ProductDetail() {
             className="w-full h-full border rounded-lg overflow-hidden"
             style={{
               backgroundImage: `url(${mainImage})`,
-              backgroundSize: "200%", // Adjust the zoom level
+              backgroundSize: "200%",
               backgroundPosition: `${hoverPosition.x}% ${hoverPosition.y}%`,
               backgroundRepeat: "no-repeat",
             }}
@@ -99,38 +104,10 @@ function ProductDetail() {
       )}
 
       {/* Product Details Section */}
-      <div className="space-y-4">
-        <h1 className="text-2xl font-semibold">{productDetail.productName}</h1>
-        <div className="flex items-center space-x-2">
-          <div className="mt-2 md:mt-0">
-            <Badge className="h-5 px-1 rounded-sm font-normal flex gap-1 items-center bg-green-500">
-              <span className="font-medium">3.4</span>
-              <TiStarFullOutline className="font-bold mb-0.5" />
-            </Badge>
-          </div>
-          <span className="text-sm text-gray-500">(623 reviews)</span>
-        </div>
-        <div className="flex items-center gap-x-2">
-          {productDetail.offerprice ? (
-            <>
-              <p className="text-xs text-slate-500 line-through">
-                ₹{productDetail.actualprice}
-              </p>
-              <p className="text-sm font-semibold">
-                ₹{productDetail.offerprice}
-              </p>
-            </>
-          ) : (
-            <p className="text-sm font-semibold">
-              ₹{productDetail.actualprice}
-            </p>
-          )}
-        </div>
-        <div>
-          <h3 className="font-medium">Description</h3>
-          <p className="text-gray-600">{productDetail.productDescription}</p>
-        </div>
-      </div>
+      <ProductDetails
+        productDetail={productDetail}
+        addItemToCart={addItemToCart}
+      />
     </div>
     // </div>
   );

@@ -20,7 +20,6 @@ import UserForm from "../profile/user-form";
 import Payment from "./payment";
 import { useCart } from "../../hooks/use-cart";
 import { useGlobal } from "../../hooks/use-global";
-import img from "../../assets/saree.jpg";
 
 interface Address {
   firstName: string;
@@ -73,7 +72,6 @@ const Cart = () => {
     } else {
       setPaymentMethod("");
     }
-    console.log(quantity);
   }, [isCodEnabled, quantity]);
 
   const handlePlaceOrder = () => {
@@ -89,7 +87,9 @@ const Cart = () => {
 
   if (cartItemData?.cartLineItems?.length! <= 0) {
     return (
-      <div className="text-sm text-center py-4">No Item added to cart</div>
+      <div className="text-sm text-center py-4">
+        You haven't added any items to your cart!
+      </div>
     );
   }
 

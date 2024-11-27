@@ -58,7 +58,11 @@ const NewComers: React.FC = () => {
       <div className="pb-16">
         <div className="new-comers grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:gap-2 mb-8 md:w-[90%] m-auto">
           {currentProducts.map((val) => (
-            <div key={val.id} className="main md:py-4 p-0.5" onClick={() => navigate(`/product-detail/${val.id}`)}>
+            <div
+              key={val.id}
+              className="main md:py-4 p-0.5"
+              onClick={() => navigate(`/product-detail/${val.id}`)}
+            >
               <div className="w-full max-w-xs mx-auto bg-white rounded-lg mb-4 relative">
                 <div className="flex justify-center cursor-pointer">
                   <Carousel

@@ -103,7 +103,7 @@ const MobileNavigation: React.FC = () => {
                 {item === "Collections" && (
                   <Accordion type="single" collapsible>
                     <AccordionItem value="collections" className="border-0">
-                      <AccordionTrigger className="hover:no-underline">
+                      <AccordionTrigger className="hover:no-underline m-0 p-0">
                         {item}
                       </AccordionTrigger>
                       <AccordionContent>

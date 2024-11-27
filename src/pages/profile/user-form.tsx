@@ -5,6 +5,7 @@ import { Form } from "../../components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTrigger } from "@radix-ui/react-dialog";
+import { toastService } from "../../services/toast.service";
 
 interface userFormProps {
   addUserAddress: (
@@ -52,7 +53,7 @@ const formSchema = z.object({
   }),
 });
 
-function UserForm({ addUserAddress }: userFormProps) {
+function UserForm({ addUserAddress, onClose }: userFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -69,16 +70,23 @@ function UserForm({ addUserAddress }: userFormProps) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    addUserAddress(
-      values.firstName,
-      values.lastName,
-      values.addressLine1,
-      values.addressLine2,
-      values.pin,
-      values.town,
-      values.state,
-      values.mobileNumber
-    );
+    if (form.formState.isValid) {
+      addUserAddress(
+        values.firstName,
+        values.lastName,
+        values.addressLine1,
+        values.addressLine2,
+        values.pin,
+        values.town,
+        values.state,
+        values.mobileNumber
+      );
+      onClose(); // Close dialog
+    } else {
+      toastService.showToast("Please fill in all required fields.", "error", {
+        position: "top-center",
+      });
+    }
   }
 
   return (
@@ -121,7 +129,7 @@ function UserForm({ addUserAddress }: userFormProps) {
           <FormFieldComponent
             control={form.control}
             name="town"
-            label="Town"
+            label="Town/City"
             placeholder="town"
             isTextarea={false}
           />
@@ -146,15 +154,21 @@ function UserForm({ addUserAddress }: userFormProps) {
             control={form.control}
             name="mobileNumber"
             label="Phone Number"
-            placeholder="+91 - 1234567890"
+            placeholder="1234567890"
             isTextarea={false}
           />
         </div>
-        <DialogTrigger asChild>
-          <Button type="submit" className=" bg-green-600 text-xs">
+        {form.formState.isValid ? (
+          <DialogTrigger asChild>
+            <Button type="submit" className=" bg-green-600 text-xs">
+              Submit
+            </Button>
+          </DialogTrigger>
+        ) : (
+          <Button type="submit" className=" bg-slate-600 text-xs">
             Submit
           </Button>
-        </DialogTrigger>
+        )}
       </form>
     </Form>
   );

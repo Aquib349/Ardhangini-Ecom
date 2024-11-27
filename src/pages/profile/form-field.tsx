@@ -33,6 +33,11 @@ const FormFieldComponent = ({
           <FormControl>
             {isTextarea ? (
               <Textarea placeholder={placeholder} {...field} />
+            ) : name === "mobileNumber" ? (
+              <div className="flex items-center border rounded">
+                <span className="h-10 flex justify-center items-center p-2 bg-slate-50">+91</span>
+                <Input placeholder={placeholder} {...field} className="border-0"/>
+              </div>
             ) : (
               <Input placeholder={placeholder} {...field} />
             )}

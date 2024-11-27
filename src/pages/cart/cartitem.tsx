@@ -3,6 +3,7 @@ import { Button } from "../../components/ui/button";
 import { Heart, Trash2 } from "lucide-react";
 import { Label } from "../../components/ui/label";
 import { toastService } from "../../services/toast.service";
+import { useState } from "react";
 
 function CartItem({
   id,
@@ -29,15 +30,56 @@ function CartItem({
   addItemWishlist: (productid: string, typeId: string) => void;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  // function to set quantity
-  function Quantity(e: any) {
-    setQuantity(Number(e.target.value));
-    if (Number(e.target.value) > 5) {
-      toastService.showToast("maximum 5 you can order", "error", {
+  const [counter, setCounter] = useState<number>(Number(quantity));
+
+  // Handle input changes for quantity
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const inputValue = e.target.value;
+
+    // Allow only numbers (positive integers) and empty input
+    if (/^\d*$/.test(inputValue)) {
+      const value = Number(inputValue);
+
+      if (value > 0 && value <= 5) {
+        setCounter(value);
+        setQuantity(value);
+      } else if (value > 5) {
+        toastService.showToast("Maximum 5 items can be ordered", "error", {
+          position: "top-center",
+        });
+      } else if (inputValue === "") {
+        setCounter(0);
+        setQuantity(0);
+      }
+    }
+  }
+
+  // Increment quantity
+  function IncreaseQuantity() {
+    if (counter < 5) {
+      const newQuantity = counter + 1;
+      setCounter(newQuantity);
+      setQuantity(newQuantity);
+    } else {
+      toastService.showToast("Maximum 5 items can be ordered", "error", {
         position: "top-center",
       });
     }
   }
+
+  // Decrement quantity
+  function DecreaseQuantity() {
+    if (counter > 1) {
+      const newQuantity = counter - 1;
+      setCounter(newQuantity);
+      setQuantity(newQuantity);
+    } else {
+      toastService.showToast("Minimum 1 item required", "error", {
+        position: "top-center",
+      });
+    }
+  }
+
   return (
     <div className="flex flex-col md:flex-row md:justify-between p-2 gap-4 md:gap-8">
       <div className="flex items-start gap-4 md:w-2/3">
@@ -56,7 +98,7 @@ function CartItem({
                   ₹{actualPrice}
                 </p>
                 <p className="text-sm font-medium">
-                  ₹{Number(quantity) * finalPrice}
+                  ₹{Number(counter * finalPrice).toFixed(2)}
                 </p>
               </>
             ) : (
@@ -75,7 +117,7 @@ function CartItem({
             <Button
               variant="outline"
               className="text-red-500 bg-transparent border-0 p-0 h-6 hover:bg-transparent"
-              onClick={() => removeItem(id, productTypeId, Number(quantity))}
+              onClick={() => removeItem(id, productTypeId, counter)}
             >
               <Trash2 size={18} />
             </Button>
@@ -86,7 +128,28 @@ function CartItem({
       {/* Quantity Control */}
       <div className="flex flex-col space-y-2">
         <Label>Quantity</Label>
-        <Input type="number" defaultValue={quantity} onChange={Quantity} />
+        <div className="flex items-center gap-x-2">
+          <Button
+            className="bg-green-600 hover:bg-green-700 h-6 p-3"
+            variant="default"
+            onClick={IncreaseQuantity}
+          >
+            +
+          </Button>
+          <Input
+            type="number"
+            className="w-16"
+            value={counter}
+            onChange={handleInputChange}
+          />
+          <Button
+            className="bg-red-600 hover:bg-red-700 h-6 p-3"
+            variant="default"
+            onClick={DecreaseQuantity}
+          >
+            -
+          </Button>
+        </div>
       </div>
     </div>
   );

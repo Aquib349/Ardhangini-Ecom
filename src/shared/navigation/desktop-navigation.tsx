@@ -47,7 +47,7 @@ const ProductNavigation: React.FC = () => {
               onMouseLeave={() => setHovered("")}
             >
               {item !== "Collections" &&
-                item.charAt(0).toUpperCase() + item.slice(1).replace("-", " ")}
+                item.charAt(0).toUpperCase() + item.slice(1)}
               {item === "Collections" && <CollectionNavigation item={item} />}
             </span>
           ))}

@@ -12,7 +12,7 @@ import { toastService } from "../../services/toast.service";
 import { useNavigate } from "react-router-dom";
 
 function ResetPassword() {
-  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
@@ -27,7 +27,7 @@ function ResetPassword() {
     try {
       const response = await apiClient.post(
         "/user-auth/request-password-reset",
-        { email }
+        { mobile: `+91${mobile}` }
       );
       toastService.showToast(`${response.data.message}`, "success", {
         position: "top-center",
@@ -50,7 +50,7 @@ function ResetPassword() {
 
   // Function to reset the password if the user email exists
   const resetPassword = async (e: React.FormEvent) => {
-    e.preventDefault(); // Ensure default form behavior is prevented
+    e.preventDefault();
     const payload = {
       email: userEmail,
       otp,
@@ -61,7 +61,7 @@ function ResetPassword() {
       const response = await apiClient.post(
         "/user-auth/reset-password",
         payload
-      ); // Send `payload` directly
+      );
       if (response) {
         toastService.showToast(`${response.data.message}`, "success", {
           position: "top-center",
@@ -74,11 +74,10 @@ function ResetPassword() {
         position: "top-center",
       });
     } finally {
-      // Dismiss the toast after a delay
       const timer = setTimeout(() => {
         toastService.dismissToast();
       }, 2000);
-      return () => clearTimeout(timer); // Clear timeout to avoid potential memory leaks
+      return () => clearTimeout(timer);
     }
   };
 
@@ -118,15 +117,20 @@ function ResetPassword() {
           <div className="space-y-6">
             <div className="space-y-1">
               <label className="block text-sm font-medium text-gray-700">
-                Enter Your Registered Email
+                Enter Your Mobile Number
               </label>
-              <Input
-                type="email"
-                value={email}
-                placeholder="Email"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className="flex items-center border rounded">
+                <span className="h-10 flex justify-center items-center p-2 bg-slate-50">
+                  +91
+                </span>
+                <Input
+                  type="number"
+                  value={mobile}
+                  placeholder="phone number"
+                  className="w-full border-0 p-3 rounded-lg focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onChange={(e) => setMobile(e.target.value)}
+                />
+              </div>
             </div>
             <Button
               className="bg-blue-600 hover:bg-blue-700 w-full text-white"
