@@ -86,6 +86,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     repeatPassword: string
   ) => {
     try {
+      // Call the registration service
       const response = await authService.register(
         firstName,
         lastName,
@@ -94,13 +95,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         password,
         repeatPassword
       );
-      const { userId } = response.data;
-      localStorage.setItem("userId", userId);
-      // localStorage.setItem("name", firstName + " " + lastName);
-      toastService.showToast("Registration successful!", "success", {
-        position: "top-center",
-      });
+
+      // Check response status
+      if (response?.status === 201) {
+        toastService.showToast("Registration successful!", "success", {
+          position: "top-center",
+        });
+      } else {
+        console.error("Unexpected response status:", response?.status);
+      }
     } catch (error) {
+      // Log error and show error toast
       console.error("Registration failed:", error);
       toastService.showToast("Failed to register!", "error", {
         position: "top-center",

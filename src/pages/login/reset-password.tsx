@@ -190,7 +190,7 @@ function ResetPassword() {
                 </InputOTPGroup>
               </InputOTP>
               <p className="text-xs">
-                Please enter the one-time password sent to your email.
+                Please enter the one-time password sent to your mobile.
               </p>
             </div>
             <div className="relative">

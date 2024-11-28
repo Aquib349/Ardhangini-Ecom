@@ -40,7 +40,10 @@ const SignUp: React.FC = () => {
         password,
         repeatPassword
       );
-      navigate("/login");
+      const timer = setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+      return () => clearInterval(timer);
     } catch (err) {
       setError("Signup failed. Please try again.");
       handleApiError(err);
@@ -105,7 +108,7 @@ const SignUp: React.FC = () => {
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <EyeOff /> : <Eye />}
+                {showPassword ? <Eye /> : <EyeOff />}
               </div>
             </div>
             <div className="relative">
@@ -120,7 +123,7 @@ const SignUp: React.FC = () => {
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                 onClick={() => setShowRepeatPassword(!showRepeatPassword)}
               >
-                {showRepeatPassword ? <EyeOff /> : <Eye />}
+                {showRepeatPassword ? <Eye /> : <EyeOff />}
               </div>
             </div>
             <Button

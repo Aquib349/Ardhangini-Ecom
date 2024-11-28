@@ -98,31 +98,28 @@ const Login: React.FC = () => {
             Forgot Password ?
           </Link>
 
-          {accessToken && (
-            <div className="flex items-center gap-x-4 py-4 px-6">
-              <div className="h-0.5 bg-slate-200 w-full"></div>
-              <span className="text-slate-300 text-sm">OR</span>
-              <div className="h-0.5 bg-slate-200 w-full"></div>
-            </div>
-          )}
+          <div className="flex items-center gap-x-4 py-4 px-6">
+            <div className="h-0.5 bg-slate-200 w-full"></div>
+            <span className="text-slate-300 text-sm">OR</span>
+            <div className="h-0.5 bg-slate-200 w-full"></div>
+          </div>
 
           {/* twilio login using otp */}
-          {accessToken && (
-            <div className="space-y-3">
-              <Input
-                placeholder="Enter your phone number"
-                type="number"
-                value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
-              />
-              <Button
-                className="w-full bg-blue-600 hover:bg-blue-700"
-                onClick={OtpBasedLogin}
-              >
-                Send Otp
-              </Button>
-            </div>
-          )}
+          <div className="space-y-3">
+            <Input
+              placeholder="Enter your phone number"
+              type="number"
+              value={mobile}
+              onChange={(e) => setMobile(e.target.value)}
+            />
+            <Button
+              className="w-full bg-blue-600 hover:bg-blue-700"
+              onClick={OtpBasedLogin}
+            >
+              Send Otp
+            </Button>
+          </div>
+
           <p className="text-center text-sm mt-4">
             Not an existing user?{" "}
             <Link

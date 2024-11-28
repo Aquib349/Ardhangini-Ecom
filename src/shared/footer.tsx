@@ -81,7 +81,7 @@ const Footer: React.FC = () => {
         {/* Bottom Section */}
         <div className="bg-yellow-200 mt-4 flex justify-center font-semibold">
           <p className="text-xs md:text-sm">
-            © Copyright Ardhangini. All Rights Reserved.
+            © Copyright Ardhangini Designs. All Rights Reserved.
           </p>
         </div>
       </div>

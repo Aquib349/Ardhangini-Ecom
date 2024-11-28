@@ -9,6 +9,7 @@ import { LoaderCircle } from "lucide-react";
 import { apiClient, handleApiError } from "../../services/axios.service";
 import { toastService } from "../../services/toast.service";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function OtpLogin() {
   const [otp, setValue] = useState("");
@@ -16,11 +17,18 @@ function OtpLogin() {
   const navigate = useNavigate();
 
   async function handleOtpVerification() {
+    // Fetch the phone number from localStorage
     const phoneNumber = localStorage.getItem("mobile");
+
+    // Set loading state to true
     setLoading(true);
 
+    // Validate the presence of phoneNumber and otp
     if (!phoneNumber || !otp) {
-      console.error("Missing phoneNumber or otp");
+      console.error("Missing phoneNumber or OTP.");
+      toastService.showToast("Phone number or OTP is missing.", "error", {
+        position: "top-center",
+      });
       setLoading(false);
       return;
     }
@@ -31,13 +39,29 @@ function OtpLogin() {
         otp,
       });
 
-      if (response) {
-        toastService.showToast("OTP Verified Successfully", "success");
-        navigate("/");
-      }
+      const { accessToken, userId } = response.data;
+
+      toastService.dismissToast();
+      toastService.showToast("Login successful!", "success", {
+        position: "top-center",
+      });
+      Cookies.set("accessToken", accessToken, {
+        path: "/",
+        secure: true,
+        sameSite: "strict",
+      });
+      localStorage.setItem("userId", userId);
+      navigate("/");
     } catch (error) {
       handleApiError(error);
       console.error("Verification failed:", error);
+      toastService.showToast(
+        "OTP verification failed. Please try again.",
+        "error",
+        {
+          position: "top-center",
+        }
+      );
     } finally {
       setLoading(false);
     }
